@@ -7,17 +7,11 @@ app: Firefox
 
 ingredients:
   script:
-#    - DLD=$(wget -q "https://www.mozilla.org/en-US/firefox/all/" -O - | grep -E "os=linux64&amp;lang=en-US" | cut -d'"' -f2)
-    - DLD="https://ftp.mozilla.org/pub/firefox/releases/50.0/linux-x86_64/en-US/firefox-50.0.tar.bz2"
+    - DLD="https://ftp.mozilla.org/pub/firefox/releases/45.9.0esr/linux-x86_64/en-US/firefox-45.9.0esr.tar.bz2"
     - wget -c $DLD --trust-server-names
     - ls firefox-*.tar.bz2 | cut -d "-" -f 2 | sed -e 's|.tar.bz2||g' > VERSION
     - wget -c --no-check-certificate --no-cookies --header "Cookie: oraclelicense=accept-securebackup-cookie" http://download.oracle.com/otn-pub/java/jdk/8u131-b11/d54c1d3a095b4ff2b6607d096fa80163/jre-8u131-linux-x64.tar.gz
     - tar xf firefox*.tar.bz2
-#    - URL2=$(wget -c "https://api.github.com/repos/gorhill/uBlock/releases" -O - | grep browser_download_url | grep 'firefox.signed.xpi"' | head -n 1 | cut -d '"' -f 4)
-    # - URL3=https://www.eff.org/files/https-everywhere-latest.xpi
-    # - URL4=https://www.eff.org/files/privacy-badger-latest.xpi
- #   - URL5=$(wget -q -c "https://addons.mozilla.org/en-US/firefox/addon/i-dont-care-about-cookies/" -O - | sed -e 's|\\\u002F|/|g' | grep -Po 'https://addons.mozilla.org/firefox/downloads/file/[0-9]*/.*?xpi' | head -n 1)
-  #  - wget -c "$URL2" "$URL5" # "$URL3" "$URL4"
 
 script:
   - mkdir -p usr/lib/jvm/ ; tar xf ../jre* -C usr/lib/jvm/
@@ -26,10 +20,11 @@ script:
   - mkdir -p usr/bin/browser/plugins/
   - mkdir -p usr/lib/mozilla/plugins/
   - mkdir -p usr/lib64/mozilla/plugins/
-  - ln -s usr/lib/jvm/jre*/lib/amd64/libnpjp2.so usr/bin/browser/plugins/libnpjp2.so
-  - ln -s usr/lib/jvm/jre*/lib/amd64/libnpjp2.so usr/lib/mozilla/plugins/libnpjp2.so
-  - ln -s usr/lib/jvm/jre*/lib/amd64/libnpjp2.so usr/lib64/mozilla/plugins/libnpjp2.so
-  - ln -s usr/lib/jvm/jre*/lib/amd64/libnpjp2.so ~/.mozilla/plugins/libnpjp2.so
+  - mkdir -p usr/bin/browser/defaults/plugins/
+  - ln -fs usr/lib/jvm/jre*/lib/amd64/libnpjp2.so usr/bin/browser/plugins/libnpjp2.so
+  - ln -fs usr/lib/jvm/jre*/lib/amd64/libnpjp2.so usr/lib/mozilla/plugins/libnpjp2.so
+  - ln -fs usr/lib/jvm/jre*/lib/amd64/libnpjp2.so usr/lib64/mozilla/plugins/libnpjp2.so
+  - ln -fs usr/lib/jvm/jre*/lib/amd64/libnpjp2.so usr/bin/browser/defaults/plugins/libnpjp2.so
   - find . -name mozicon128.png -exec cp {} firefox.png \;
   - find . -name default128.png -exec cp {} firefox.png \;
   - find . -name mozicon128.png -exec cp {} usr/share/icons/hicolor/128x128/apps/firefox.png \;
@@ -62,10 +57,8 @@ script:
   - MimeType=text/html;text/xml;application/xhtml+xml;application/xml;application/rss+xml;application/rdf+xml;image/gif;image/jpeg;image/png;x-scheme-handler/http;x-scheme-handler/https;x-scheme-handler/ftp;x-scheme-handler/chrome;video/webm;application/x-xpinstall;
   - StartupNotify=true
   - EOF
-  - wget -c "https://raw.githubusercontent.com/acontiumnapellus/AppImages/master/recipes/Firefox_mozilla.cfg" -O 
-usr/bin/mozilla.cfg
-  - wget -c "https://raw.githubusercontent.com/aconitumnapellus/AppImages/master/recipes/Firefox_00_admin-prefs.js" -O 
-usr/bin/defaults/pref/00_admin-prefs.js
+  - wget -c "https://raw.githubusercontent.com/aconitumnapellus/AppImages/master/recipes/Firefox_mozilla.cfg" -O usr/bin/mozilla.cfg
+  - wget -c "https://raw.githubusercontent.com/aconitumnapellus/AppImages/master/recipes/Firefox_00_admin-prefs.js" -O usr/bin/defaults/pref/00_admin-prefs.js
 
 post:
   - cp ../firefox/libnss3.so usr/bin # Override excludelist
