@@ -47,8 +47,7 @@ script:
   - find . -name default5128.png -exec cp {} usr/share/icons/hicolor/512x512/apps/firefox.png \;
   - find . -name default64.png -exec cp {} usr/share/icons/hicolor/64x64/apps/firefox.png \;
   - # Clean up
-  - rm usr/bin/browser/features/{firefox@getpocket.com,onboarding@mozilla.org,activity-stream@mozilla.org,aushelper@mozilla.org,followonsearch@mozilla.com,formautofill@mozilla.org}.xpi 
-|| true
+  - rm usr/bin/browser/features/{firefox@getpocket.com,onboarding@mozilla.org,activity-stream@mozilla.org,aushelper@mozilla.org,followonsearch@mozilla.com,formautofill@mozilla.org}.xpi || true
   - # Workaround for:
   - # https://bugzilla.mozilla.org/show_bug.cgi?id=296568
   - cat > firefox.desktop <<EOF
