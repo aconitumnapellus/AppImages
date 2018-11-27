@@ -12,8 +12,6 @@ script:
   - mkdir -p usr/lib/jvm/ ; tar xf ../jre* -C usr/lib/jvm/
   - mkdir -p usr/bin/palemoon
   - cp -rf ../palemoon/* usr/bin/palemoon/
-# - chmod +x usr/bin/palemoon/*
-# - chmod -R 777 usr/bin/palemoon/*
   - mkdir -p usr/bin/palemoon/browser/plugins/
   - ln -fs jre1.8.0_131 usr/lib/jvm/latest
   - ln -fs ../../../../lib/jvm/latest/lib/amd64/libnpjp2.so usr/bin/palemoon/browser/plugins/libnpjp2.so
@@ -52,8 +50,3 @@ script:
   - MimeType=text/html;text/xml;application/xhtml+xml;application/xml;application/rss+xml;application/rdf+xml;image/gif;image/jpeg;image/png;x-scheme-handler/http;x-scheme-handler/https;x-scheme-handler/ftp;x-scheme-handler/chrome;video/webm;application/x-xpinstall;
   - StartupNotify=true
   - EOF
-#  - wget -c "https://raw.githubusercontent.com/aconitumnapellus/AppImages/master/recipes/Firefox_mozilla.cfg" -O usr/bin/mozilla.cfg
-#  - wget -c "https://raw.githubusercontent.com/aconitumnapellus/AppImages/master/recipes/Firefox_00_admin-prefs.js" -O usr/bin/defaults/pref/00_admin-prefs.js
-
-#post:
-#  - cp ../firefox/libnss3.so usr/bin # Override excludelist
