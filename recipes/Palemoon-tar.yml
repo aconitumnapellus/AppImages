@@ -15,7 +15,6 @@ script:
   - mkdir -p usr/bin/palemoon/browser/plugins/
   - ln -fs jre1.8.0_131 usr/lib/jvm/latest
   - ln -fs ../../../../lib/jvm/latest/lib/amd64/libnpjp2.so usr/bin/palemoon/browser/plugins/libnpjp2.so
-   #- ln -fs usr/lib/jvm/jre*/lib/amd64/libnpjp2.so usr/bin/palemoon/defaults/plugins/libnpjp2.so
   - ln -fs palemoon/palemoon usr/bin/palemoon-browser
   - find . -name mozicon128.png -exec cp {} firefox.png \;
   - find . -name default128.png -exec cp {} firefox.png \;
